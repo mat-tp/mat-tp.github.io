@@ -3,54 +3,712 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matlala Tshephang</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Tshephang Matlala — Computer Science</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a18;
+            --ink-2: #4a4a45;
+            --ink-3: #9a9a92;
+            --paper: #f5f2ec;
+            --paper-2: #ede9e0;
+            --accent: #2a5f4f;
+            --accent-light: #e1ede9;
+            --rule: rgba(26,26,24,0.12);
+            --link: #2a5f4f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ── Layout ── */
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        /* ── Header ── */
+        .masthead {
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            animation: rise 0.7s ease both;
+        }
+
+        .masthead-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin-bottom: 1rem;
+        }
+
+        .masthead h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
+        }
+
+        .masthead-sub {
+            font-size: 0.95rem;
+            color: var(--ink-2);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+        }
+
+        .contact-row a {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .contact-row a:hover { text-decoration: underline; }
+
+        .contact-row a svg { flex-shrink: 0; }
+
+        /* ── Sections ── */
+        .section {
+            margin-bottom: 3rem;
+            animation: rise 0.7s ease both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.05s; }
+        .section:nth-child(3) { animation-delay: 0.10s; }
+        .section:nth-child(4) { animation-delay: 0.15s; }
+        .section:nth-child(5) { animation-delay: 0.20s; }
+        .section:nth-child(6) { animation-delay: 0.25s; }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+
+        /* ── Letter ── */
+        .letter {
+            background: var(--paper-2);
+            border: 1px solid var(--rule);
+            border-radius: 2px;
+            padding: 2rem 2.25rem;
+            position: relative;
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 2rem;
+            width: 1px;
+            height: 100%;
+            background: rgba(42,95,79,0.12);
+        }
+
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .letter-from {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-3);
+            line-height: 1.6;
+        }
+
+        .letter-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-light);
+            border: 1px solid rgba(42,95,79,0.2);
+            padding: 4px 10px;
+            border-radius: 2px;
+        }
+
+        .letter p {
+            font-size: 15px;
+            color: var(--ink-2);
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+
+        .letter p:last-child { margin-bottom: 0; }
+
+        .letter-divider {
+            border: none;
+            border-top: 1px solid var(--rule);
+            margin: 1.25rem 0;
+        }
+
+        .letter h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--ink);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Research items ── */
+        .research-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .research-item {
+            display: grid;
+            grid-template-columns: 3px 1fr;
+            gap: 0 1.25rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .research-item:last-child { border-bottom: none; }
+
+        .research-bar {
+            background: var(--accent);
+            border-radius: 2px;
+            align-self: stretch;
+            opacity: 0.35;
+        }
+
+        .research-item.wip .research-bar { opacity: 0.15; }
+
+        .research-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 0.35rem;
+        }
+
+        .research-desc {
+            font-size: 14px;
+            color: var(--ink-2);
+            margin-bottom: 0.6rem;
+            line-height: 1.65;
+        }
+
+        .research-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .research-link:hover { text-decoration: underline; }
+
+        .wip-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            background: var(--paper-2);
+            border: 1px solid var(--rule);
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        /* ── Projects ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            background: var(--rule);
+            border: 1px solid var(--rule);
+        }
+
+        .project-card {
+            background: var(--paper);
+            padding: 1.25rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.15s;
+        }
+
+        .project-card:hover { background: var(--accent-light); }
+
+        .project-card-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+        }
+
+        .project-card-desc {
+            font-size: 12.5px;
+            color: var(--ink-3);
+            line-height: 1.55;
+        }
+
+        /* ── Skills ── */
+        .skills-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 1rem;
+            align-items: baseline;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .skill-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            color: var(--ink-3);
+            text-transform: uppercase;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--ink-2);
+            background: var(--paper-2);
+            border: 1px solid var(--rule);
+            padding: 2px 9px;
+            border-radius: 2px;
+        }
+
+        /* ── Education & Experience ── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 0 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .timeline-item:last-child { border-bottom: none; }
+
+        .timeline-year {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-3);
+            padding-top: 2px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.15rem;
+        }
+
+        .timeline-org {
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .timeline-desc {
+            font-size: 13.5px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .footer-copy {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-3);
+        }
+
+        /* ── Animation ── */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 600px) {
+            .page { padding: 2.5rem 1.25rem 4rem; }
+            .letter { padding: 1.5rem 1.25rem; }
+            .letter::before { left: 1.25rem; }
+            .skill-row { grid-template-columns: 1fr; gap: 0.3rem; }
+            .timeline-item { grid-template-columns: 1fr; gap: 0.1rem; }
+            .letter-header { flex-direction: column; gap: 0.75rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="header-text">
-                <h1>Matlala Tshephang P.</h1>
-                <p class="subtitle">BSc Computer Science | AI Specialist</p>
-                <p>
-                    Computer Science student at University of Johannesburg specializing in Artificial Intelligence. 
-                    Passionate about developing intelligent systems and solving real-world challenges in Tech, finance, 
-                    robotics, and automotive sectors.
-                </p>
+<div class="page">
+
+    <!-- ── Masthead ── -->
+    <header class="masthead">
+        <p class="masthead-label">Portfolio · Johannesburg, ZA</p>
+        <h1>Tshephang P. Matlala</h1>
+        <p class="masthead-sub">BSc Hons Computer Science · AI Specialist · University of Johannesburg</p>
+        <div class="contact-row">
+            <a href="mailto:matlalatshephang3@gmail.com">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                matlalatshephang3@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/tshephang-matlala-a5b962306" target="_blank">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                LinkedIn
+            </a>
+            <a href="https://github.com/mat-tp" target="_blank">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                GitHub
+            </a>
+        </div>
+    </header>
+
+    <!-- ── Letter ── -->
+    <section class="section">
+        <p class="section-label">A note</p>
+        <div class="letter">
+            <div class="letter-header">
+                <div class="letter-from">
+                    <strong>From:</strong> Mr. T.P. Matlala<br>
+                    <strong>To:</strong> You
+                </div>
+                <span class="letter-badge">Not AI generated</span>
+            </div>
+
+            <p>Hi, I hope that you are doing well!</p>
+            <p>
+                You have accessed this portfolio either through my LinkedIn, GitHub, or I shared it with you personally.
+                Either way — welcome.
+            </p>
+
+            <hr class="letter-divider">
+            <h3>Who am I?</h3>
+
+            <p>
+                My name is Tshephang Matlala. I am currently a student studying Honours in Computer Science at the
+                University of Johannesburg (UJ). I am very interested in the technology field — think of anything
+                that has to do with computers, research, software, and data-related work.
+            </p>
+            <p>
+                I hold a degree in BSc Computer Science and Informatics with AI. My research is within the AI field;
+                I have not yet published any paper, but my core areas are <strong>computer vision</strong> and
+                <strong>natural language processing</strong>.
+            </p>
+            <p>
+                Please note that I am not limited to the areas mentioned here — feel free to reach me at
+                <a href="mailto:matlalatshephang3@gmail.com" style="color:var(--accent);">matlalatshephang3@gmail.com</a>.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Research ── -->
+    <section class="section">
+        <p class="section-label">Research & current work</p>
+        <div class="research-list">
+
+            <div class="research-item">
+                <div class="research-bar"></div>
+                <div>
+                    <p class="research-title">Image Inpainting via Deep Reinforcement Learning</p>
+                    <p class="research-desc">
+                        Instead of relying solely on CNNs or Encoder-Decoder networks, I explored using a
+                        Reinforcement Learning agent for image reconstruction tasks. Training an RL agent to
+                        optimality is computationally demanding, so results remain ongoing — but the approach is
+                        architecturally novel.
+                    </p>
+                    <a class="research-link" href="https://github.com/mat-tp/deep_rl_agent_Image_restoration" target="_blank">
+                        github.com/mat-tp/deep_rl_agent_Image_restoration ↗
+                    </a>
+                </div>
+            </div>
+
+            <div class="research-item wip">
+                <div class="research-bar"></div>
+                <div>
+                    <p class="research-title">
+                        Video Classification under Camera Distortions
+                        <span class="wip-tag">In progress</span>
+                    </p>
+                    <p class="research-desc">
+                        Focusing on pure ML techniques — KNN, SVM, and Decision Trees — to classify video
+                        content across different distortion types: Pristine, Exposure, Blur, and Exposure-Blur
+                        combined.
+                    </p>
+                    <a class="research-link" href="https://github.com/mat-tp/suspicious-activity-detection" target="_blank">
+                        github.com/mat-tp/suspicious-activity-detection ↗
+                    </a>
+                </div>
+            </div>
+
+            <div class="research-item wip">
+                <div class="research-bar"></div>
+                <div>
+                    <p class="research-title">
+                        South African Language Predictability
+                        <span class="wip-tag">In progress</span>
+                    </p>
+                    <p class="research-desc">
+                        An NLP study examining how predictable South African languages are relative to each other,
+                        motivated by the scarcity of training data for these languages and a goal of supporting
+                        NLP system development for them.
+                    </p>
+                    <a class="research-link" href="https://github.com/mat-tp/SA-Language-Predictability" target="_blank">
+                        github.com/mat-tp/SA-Language-Predictability ↗
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section class="section">
+        <p class="section-label">Other projects</p>
+        <div class="projects-grid">
+            <a class="project-card" href="https://github.com/mat-tp/autoencoder-project" target="_blank">
+                <p class="project-card-title">Autoencoder — Image Generation</p>
+                <p class="project-card-desc">Implemented autoencoders for image generation tasks using Kaggle notebooks.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/GANs-project" target="_blank">
+                <p class="project-card-title">GANs — Generative Adversarial Networks</p>
+                <p class="project-card-desc">Built and trained GAN architectures for synthetic image generation.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/KNN-Diabetes-Classifier" target="_blank">
+                <p class="project-card-title">Diabetes Classification (KNN)</p>
+                <p class="project-card-desc">K-Nearest Neighbors classifier distinguishing diabetic from non-diabetic cases.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/linear-regression-car-pred" target="_blank">
+                <p class="project-card-title">Car Price Prediction</p>
+                <p class="project-card-desc">Linear regression model for predicting used car prices.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/PathSearchAgent-VCA" target="_blank">
+                <p class="project-card-title">Pathfinding Agent (Java)</p>
+                <p class="project-card-desc">Java implementation of A*, BFS, DFS, Dijkstra's and Greedy Best-First Search.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/ttG" target="_blank">
+                <p class="project-card-title">Time Traveler's Guestbook</p>
+                <p class="project-card-desc">Real-time visitor tracking web app — see who else has visited.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/SA-Crime-AnalysisLambdaHSP" target="_blank">
+                <p class="project-card-title">SA Crime Analysis</p>
+                <p class="project-card-desc">Haskell-based analysis of South African crime data — functional programming applied to real-world datasets.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/lari-castle" target="_blank">
+                <p class="project-card-title">Lari Castle</p>
+                <p class="project-card-desc">C++ game project.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/AI-Algorithms" target="_blank">
+                <p class="project-card-title">AI Algorithms</p>
+                <p class="project-card-desc">Python implementations of various AI algorithms and techniques.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/self-organizing-maps" target="_blank">
+                <p class="project-card-title">Self-Organising Maps</p>
+                <p class="project-card-desc">Python implementation of SOMs — an unsupervised neural network technique for dimensionality reduction and clustering.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/Mnist-in-Java" target="_blank">
+                <p class="project-card-title">MNIST in Java</p>
+                <p class="project-card-desc">Handwritten digit classifier built from scratch in Java using the MNIST dataset.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/stephenHawking" target="_blank">
+                <p class="project-card-title">Stephen Hawking Voice Simulation</p>
+                <p class="project-card-desc">Audio modelling project — work in progress.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/path_search_agent" target="_blank">
+                <p class="project-card-title">Pathfinding Agent (TypeScript)</p>
+                <p class="project-card-desc">TypeScript port of the pathfinding visualiser.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/PathSearchAgent" target="_blank">
+                <p class="project-card-title">Pathfinding Visualiser</p>
+                <p class="project-card-desc">Interactive pathfinding algorithm visualiser.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/dera-app" target="_blank">
+                <p class="project-card-title">Dera App</p>
+                <p class="project-card-desc">HTML web application project.</p>
+            </a>
+            <a class="project-card" href="https://github.com/mat-tp/helloIwasHere" target="_blank">
+                <p class="project-card-title">Hello I Was Here</p>
+                <p class="project-card-desc">JavaScript visitor presence project.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- ── Skills ── -->
+    <section class="section">
+        <p class="section-label">Skills</p>
+        <div class="skills-block">
+            <div class="skill-row">
+                <span class="skill-label">Languages</span>
+                <div class="skill-tags">
+                    <span class="tag">Python</span><span class="tag">Java</span><span class="tag">C++</span>
+                    <span class="tag">JavaScript</span><span class="tag">R</span><span class="tag">Haskell</span>
+                    <span class="tag">VB.NET</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">ML / AI</span>
+                <div class="skill-tags">
+                    <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">scikit-learn</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">Data</span>
+                <div class="skill-tags">
+                    <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">Web</span>
+                <div class="skill-tags">
+                    <span class="tag">React</span><span class="tag">Flask</span><span class="tag">REST APIs</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">Databases</span>
+                <div class="skill-tags">
+                    <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQLite</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">Tools</span>
+                <div class="skill-tags">
+                    <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span>
+                </div>
             </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/projects.html">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="skills">
-            <h2>Skills</h2>
-            <ul>
-                <li><strong>Programming:</strong> Python, Java, C++, VB.NET</li>
-                <li><strong>Tools:</strong> Microsoft Office Suite</li>
-            </ul>
-        </section>
+    </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="contact-links">
-                <a href="mailto:matlalat53@gmail.com">Email</a>
-                <a href="https://linkedin.com/in/tshephang-matlala-a5b962306" target="_blank">LinkedIn</a>
-                <a href="https://github.com/mat-tp" target="_blank">GitHub</a>
-    
+    <!-- ── Education & Experience ── -->
+    <section class="section">
+        <p class="section-label">Education</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-year">2026</span>
+                <div>
+                    <p class="timeline-title">BSc Honours in Computer Science</p>
+                    <p class="timeline-org">University of Johannesburg</p>
+                </div>
             </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; mat-tp -2025</p>
+            <div class="timeline-item">
+                <span class="timeline-year">2023–2025</span>
+                <div>
+                    <p class="timeline-title">BSc Computer Science & Informatics (AI)</p>
+                    <p class="timeline-org">University of Johannesburg</p>
+                    <p class="timeline-desc">UJenius Award, 2023</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-year">2022</span>
+                <div>
+                    <p class="timeline-title">National Senior Certificate</p>
+                    <p class="timeline-org">Nkgopoleng Bakone High School</p>
+                    <p class="timeline-desc">Top 500 Achievers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Experience</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-year">2026</span>
+                <div>
+                    <p class="timeline-title">Student Assistant & Tutor</p>
+                    <p class="timeline-org">ACSSE, University of Johannesburg</p>
+                    <p class="timeline-desc">
+                        Tutored 20–50 students in programming and informatics. Marked assignments and
+                        invigilated tests for 100+ submissions.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-year">2021–2025</span>
+                <div>
+                    <p class="timeline-title">Store Assistant</p>
+                    <p class="timeline-org">Setumong Supermarket</p>
+                    <p class="timeline-desc">
+                        Managed inventory and daily operations. Identified inefficiencies in stock and
+                        transaction tracking.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="footer">
+        <span class="footer-copy">© mat-tp · 2025</span>
+        <span class="footer-copy">Johannesburg, Gauteng · ZA</span>
     </footer>
+
+</div>
 </body>
 </html>
